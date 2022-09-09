@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home">
+
+    <TextView
+        android:id="@+id/txt_view_home"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Ingrese su solicitud"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txt_patente"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:hint="Patente"
+        android:inputType="textPersonName"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_view_home" />
+
+    <Spinner
+        android:id="@+id/sp_marca"
+        android:layout_width="330dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_patente" />
+
+    <Spinner
+        android:id="@+id/sp_color"
+        android:layout_width="330dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_marca" />
+
+    <EditText
+        android:id="@+id/txt_fecha_ingreso"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:hint="Ingrese fecha"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_color" />
+
+    <EditText
+        android:id="@+id/txt_kilometraje"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:hint="Ingrese kilometraje"
+        android:inputType="numberSigned"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_fecha_ingreso" />
+
+
+    <RadioGroup
+        android:id="@+id/rg_motivo"
+        android:layout_width="112dp"
+        android:layout_height="154dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_kilometraje">
+
+        <RadioButton
+            android:id="@+id/rb_servicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="selectMotivo"
+            android:text="Servicio"
+            tools:layout_editor_absoluteX="75dp"
+            tools:layout_editor_absoluteY="587dp" />
+
+        <RadioButton
+            android:id="@+id/rb_mantencion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="selectMotivo"
+            android:text="Mantención"
+            tools:layout_editor_absoluteX="262dp"
+            tools:layout_editor_absoluteY="563dp" />
+
+        <RadioButton
+            android:id="@+id/rb_otro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="selectMotivo"
+            android:text="Otro"
+            tools:layout_editor_absoluteX="226dp"
+            tools:layout_editor_absoluteY="652dp" />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/txt_otro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:hint="Motivo"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rg_motivo"
+        app:layout_constraintTop_toBottomOf="@+id/txt_kilometraje" />
+
+    <EditText
+        android:id="@+id/txt_rut"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:hint="1111111-1"
+        android:inputType="textPersonName"
+        android:onClick="validarRut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg_motivo" />
+
+    <EditText
+        android:id="@+id/txt_nombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:hint="Nombre completo"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_rut" />
+
+    <Button
+        android:id="@+id/btn_enviar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="validarFormulario"
+        android:text="Enviar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
