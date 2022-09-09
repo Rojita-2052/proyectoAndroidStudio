@@ -129,7 +129,9 @@ class Home : AppCompatActivity() {
             val radioSeleccionadoID = rg_motivo.checkedRadioButtonId;
             val radioSeleccionado = findViewById<RadioButton>(radioSeleccionadoID);
             motivo = radioSeleccionado.text.toString();
-
+            if (motivo == "Otro") {
+                motivo = txt_otro;
+            }
         } catch (err: Exception) {
             validator = false;
             error = "Debe seleccionar un motivo";
