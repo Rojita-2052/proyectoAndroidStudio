@@ -24,16 +24,12 @@ class Home : AppCompatActivity() {
             this.supportActionBar!!.title = "Bienvenido: " + usuario
         }
 
-        iniciarMotivo()
+
         iniciarSpinnerMarca()
         iniciarSpinnerColor()
 
     }
 
-    fun iniciarMotivo() {
-        // var rg_motivo = findViewById<RadioGroup>(R.id.rg_motivo);
-        // rg_motivo.isChecked = true;
-    }
 
     fun iniciarSpinnerMarca() {
         var opcionMarca = arrayOf("Seleccionar","Hyundai", "Chevrolet", "Susuki", "Nissan", "Chery")
