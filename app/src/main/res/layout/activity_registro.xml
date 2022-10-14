@@ -89,7 +89,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="40dp"
         android:fontFamily="sans-serif-black"
-        android:onClick="registroOk"
+        android:onClick="almacenar"
         android:text="REGISTRAR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
