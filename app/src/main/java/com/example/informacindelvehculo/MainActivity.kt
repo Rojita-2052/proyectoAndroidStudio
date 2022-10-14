@@ -13,23 +13,28 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-        fun credenciales(view: View)
-        {
-            val usuario = findViewById<EditText>(R.id.txt_usuario).text.toString()
-            val clave = findViewById<EditText>(R.id.txt_clave).text.toString()
+    fun credenciales(view: View)
+    {
+        val usuario = findViewById<EditText>(R.id.txt_usuario).text.toString()
+        val clave = findViewById<EditText>(R.id.txt_clave).text.toString()
 
-            val bundle= Bundle()
-            bundle.putString("usuario", usuario)
-            bundle.putString("clave", clave)
+        val bundle= Bundle()
+        bundle.putString("usuario", usuario)
+        bundle.putString("clave", clave)
 
-            if(clave.equals("admin")){
-                val intent= Intent(this, Home::class.java)
-                intent.putExtras(bundle)
+        if(clave.equals("admin")){
+            val intent= Intent(this, Home::class.java)
+            intent.putExtras(bundle)
 
-                startActivity(intent)
-            }else{
-                val toast = Toast.makeText(applicationContext,"Credenciales incorrectas", Toast.LENGTH_LONG)
-                    toast.show()
-            }
+            startActivity(intent)
+        }else{
+            val toast = Toast.makeText(applicationContext,"Credenciales incorrectas", Toast.LENGTH_LONG)
+                toast.show()
         }
+    }
+
+    fun btnRegistro(view: View){
+        val intent= Intent(this, Registro::class.java)
+        startActivity(intent)
+    }
 }
