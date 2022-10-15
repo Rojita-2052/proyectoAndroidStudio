@@ -45,10 +45,7 @@ class MainActivity : AppCompatActivity() {
 
 
                 if(obj.result != "LOGIN NOK"){
-                    //val intent= Intent(this, Home::class.java)
-                    //intent.putExtras(bundle)
-
-                    //startActivity(intent)
+                    val intent= Intent(applicationContext, Home::class.java)
                     println("Entraste")
                 } else {
                     println("Error en credenciales")
