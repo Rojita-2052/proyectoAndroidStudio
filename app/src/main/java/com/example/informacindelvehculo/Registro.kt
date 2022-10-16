@@ -19,7 +19,7 @@ class Registro : AppCompatActivity() {
 
     fun registroOk(view: View) {
         val correo = findViewById<EditText>(R.id.txt_correo_registro).text.toString()
-        val clave = findViewById<EditText>(R.id.txt_clave_registro).text.toString()
+        val clave = findViewById<EditText>(R.id.txt_contrasena_registro).text.toString()
         val nombre = findViewById<EditText>(R.id.txt_nombre_registro).text.toString()
         val apellido = findViewById<EditText>(R.id.txt_apellido_registro).text.toString()
 
@@ -35,7 +35,7 @@ class Registro : AppCompatActivity() {
 
     fun almacenar(view: View) {
         val correo = findViewById<EditText>(R.id.txt_correo_registro).text.toString()
-        val contrasena = findViewById<EditText>(R.id.txt_clave_registro).text.toString()
+        val contrasena = findViewById<EditText>(R.id.txt_contrasena_registro).text.toString()
         val nombre = findViewById<EditText>(R.id.txt_nombre_registro).text.toString()
         val apellido = findViewById<EditText>(R.id.txt_apellido_registro).text.toString()
 

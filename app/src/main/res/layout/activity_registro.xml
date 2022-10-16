@@ -37,7 +37,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_view_registro" />
 
     <EditText
-        android:id="@+id/txt_clave_registro"
+        android:id="@+id/txt_contrasena_registro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -45,8 +45,8 @@
         android:layout_marginEnd="40dp"
         android:ems="10"
         android:fontFamily="sans-serif-black"
-        android:hint="Clave"
-        android:inputType="textPersonName"
+        android:hint="Contraseña"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_correo_registro" />
@@ -64,7 +64,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_clave_registro" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_contrasena_registro" />
 
     <EditText
         android:id="@+id/txt_apellido_registro"
@@ -94,4 +94,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_apellido_registro" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
