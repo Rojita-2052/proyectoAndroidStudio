@@ -16,4 +16,10 @@ class Opciones : AppCompatActivity() {
 
         startActivity(intent)
     }
+
+    fun visualizarLista(view: View){
+        val intent= Intent(this, ListaInspecciones::class.java)
+
+        startActivity(intent)
+    }
 }
