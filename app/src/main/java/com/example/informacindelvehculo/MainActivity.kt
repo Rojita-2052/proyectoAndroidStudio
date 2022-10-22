@@ -13,9 +13,13 @@ import okhttp3.*
 import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
+    val db: DbHandler = DbHandler(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //val isLogin =
+        // TODO: ACA SE DEBE CONSULTAR A LA BD Y VER SI EXISTE UN USUARIO CREADO
     }
 
     fun credenciales(view: View)
@@ -24,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val clave = findViewById<EditText>(R.id.txt_clave).text.toString()
 
         val mediaType: MediaType? = MediaType.parse("application/json; charset=utf-8")
-        var json = "{\"nombreFuncion\":\"UsuarioLogin\", \"parametros\": [\"" + usuario + "\", \"" + clave + "\"]}"
+        val json = "{\"nombreFuncion\":\"UsuarioLogin\", \"parametros\": [\"" + usuario + "\", \"" + clave + "\"]}"
         Log.i("TPE: ", json)
         val client = OkHttpClient()
         val body: RequestBody = RequestBody.create(mediaType, json)
@@ -38,14 +42,14 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call, response: Response) {
                 val jsonData = response.body()!!.string()
-                println("accaaaaaa" + jsonData.toString())
-                val obj = Json.decodeFromString<Respuesta>(jsonData.toString())
-                println("aca2" +obj.result);
+                val obj = Json.decodeFromString<RespuestaAuth>(jsonData.toString())
 
-
-
-                if(obj.result != "LOGIN NOK"){
+                if(obj.result == "LOGIN OK"){
+                    // TODO: EL USUARIO CUANDO LOGUEA CORRECTAMENTE SE DEBE GUARDAR EN LA BASE DE DATOS LOCAL
+                    val response = db.insertUsuario(usuario, clave)
+                    Log.i("TPE", "onCreate: " + response)
                     val intent= Intent(applicationContext, Opciones::class.java)
+                    startActivity(intent)
                     println("Entraste")
                 } else {
                     println("Error en credenciales")
@@ -60,16 +64,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-/**
-        if(clave.equals("admin")){
-            val intent= Intent(this, Home::class.java)
-            intent.putExtras(bundle)
-
-            startActivity(intent)
-        }else{
-            val toast = Toast.makeText(applicationContext,"Credenciales incorrectas", Toast.LENGTH_LONG)
-                toast.show()
-        }**/
     }
 
     fun btnRegistro(view: View){

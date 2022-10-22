@@ -18,7 +18,8 @@ class Opciones : AppCompatActivity() {
     }
 
     fun visualizarLista(view: View){
-        val intent= Intent(this, ListaInspecciones::class.java)
+        // TODO: IMPLEMENTAR GET Y ENVIAR AL MY LIST ADAPTER
+        val intent= Intent(this, ListarInspeccion::class.java)
 
         startActivity(intent)
     }

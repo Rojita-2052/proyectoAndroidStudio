@@ -13,11 +13,13 @@ class DbHandler(context: Context): SQLiteOpenHelper(context, "datos_db", null, 1
 
     override fun onCreate(db: SQLiteDatabase?) {
         Log.i("TPE", "onCreate: Base de datos OK")
-        val sql_usuario = ("CREATE TABLE USUARIO (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "correo TEXT, contrasena TEXT, nombre TEXT, apellido TEXT)")
+        val sql_usuario = ("CREATE TABLE USUARIO (ID INTEGER PRIMARY KEY AUTOINCREMENT, CORREO TEXT, CONTRASENA TEXT)")
         db?.execSQL(sql_usuario)
-        val sql_inspecciones = ("CREATE TABLE INSPECCION (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "correo TEXT, contrasena TEXT, nombre TEXT, apellido TEXT)")
+        val sql_inspecciones = (
+            "CREATE TABLE INSPECCION (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "MARCA TEXT, COLOR TEXT, FECHA_INGRESO TEXT, KILOMETRAJE, MOTIVO TEXT, MOTIVO_TEXTO TEXT, " +
+            "RUT_CLIENTE TEXT, NOMBRE_CLIENTE TEXT)"
+        )
         db?.execSQL(sql_inspecciones)
         Log.i("TPE", "onCreate: Base de datos OK")
     }
@@ -27,17 +29,37 @@ class DbHandler(context: Context): SQLiteOpenHelper(context, "datos_db", null, 1
     }
 
     //MÉTODO QUE INSERTA UN USUARIO
-    fun insertPersona():Long{
+    fun insertUsuario(correo: String, contrasena: String):Long{
         val db = this.writableDatabase
         val contentValues = ContentValues()
 
-        //contentValues.put("RUT", "11.111.111-1")
-        //contentValues.put("NOMBRE", "LEONARDO SALINAS")
-        //contentValues.put("SUELDO", 1000)
+        contentValues.put("CORREO", correo)
+        contentValues.put("CONTRASENA", contrasena)
 
         val success = db.insert("USUARIO", null, contentValues)
         db.close()
         return success
+    }
+
+    fun userIsLogged(): String {
+        val sql = "SELECT CORREO, CONTRASENA FROM USUARIO"
+        val db = this.readableDatabase
+
+        var CORREO: String = "";
+        var cursor: Cursor? = null
+
+        try{
+            cursor = db.rawQuery(sql, null)
+        }catch (e: SQLiteException) {
+            db.execSQL(sql)
+        }
+
+
+        if (cursor != null && cursor.moveToFirst()) {
+            //CORREO = cursor.getString(cursor.getColumnIndex("CORREO"))
+            cursor.close()
+        }
+        return CORREO;
     }
 
     //MÉTODO QUE INSERTA UNA INSPECCION
@@ -45,48 +67,9 @@ class DbHandler(context: Context): SQLiteOpenHelper(context, "datos_db", null, 1
         val db = this.writableDatabase
         val contentValues = ContentValues()
 
-        //contentValues.put("RUT", "11.111.111-1")
-        //contentValues.put("NOMBRE", "LEONARDO SALINAS")
-        //contentValues.put("SUELDO", 1000)
-
         val success = db.insert("INSPECCION", null, contentValues)
         db.close()
         return success
     }
 
-    //MÉTODO QUE OBTIENE TODAS LAS PERSONAS
-    @SuppressLint("Range")
-    fun viewEmployee():List<Usuario>{
-        val listaUsuario: ArrayList<Usuario> = ArrayList<Usuario>()
-        val sql = "SELECT id, correo, contrasena, nombre, apellido FROM USUARIO"
-        val db = this.readableDatabase
-        var cursor: Cursor? = null
-        try{
-            cursor = db.rawQuery(sql, null)
-        }catch (e: SQLiteException) {
-            db.execSQL(sql)
-            return ArrayList()
-        }
-
-        var id: Int
-        var correo: String
-        var contrasena: String
-        var nombre: String
-        var apellido: String
-
-        if (cursor.moveToFirst()) {
-            do {
-                id = cursor.getInt(cursor.getColumnIndex("id"))
-                correo = cursor.getString(cursor.getColumnIndex("rut"))
-                contrasena = cursor.getString(cursor.getColumnIndex("contrasena"))
-                nombre = cursor.getString(cursor.getColumnIndex("nombre"))
-                apellido = cursor.getString(cursor.getColumnIndex("apellido"))
-
-                val usuario = Usuario(id = id, correo = correo, contrasena = contrasena, nombre = nombre, apellido = apellido)
-                listaUsuario.add(usuario)
-            } while (cursor.moveToNext())
-        }
-
-        return listaUsuario
-    }
 }

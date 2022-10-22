@@ -55,7 +55,7 @@ class Registro : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 val jsonData = response.body()!!.string()
 
-                val obj = Json.decodeFromString<Respuesta>(jsonData.toString())
+                val obj = Json.decodeFromString<RespuestaAuth>(jsonData.toString())
                 println(obj.result);
             }
         })
