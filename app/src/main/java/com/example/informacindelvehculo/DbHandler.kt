@@ -65,8 +65,9 @@ class DbHandler(context: Context): SQLiteOpenHelper(context, "datos_db", null, 1
 
     fun deleteLogin(correo: String) {
         val db = this.writableDatabase
-        val sql_delete = ("DELETE FROM LOGIN WHERE CORREO = )"+ correo)
-        db?.execSQL(sql_delete)
+        //val sql_delete = ("DELETE FROM LOGIN WHERE CORREO = "+ correo + ")")
+        //db?.execSQL(sql_delete)
+        db.delete("LOGIN", "CORREO" + "='" + correo +"'", null) > 0;
     }
 
     fun userIsLogged(): String {
