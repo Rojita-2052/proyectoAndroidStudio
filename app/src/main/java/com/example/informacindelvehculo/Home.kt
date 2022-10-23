@@ -13,11 +13,13 @@ import java.io.IOException
 
 class Home : AppCompatActivity() {
     var usuario = ""
-
+    val db: DbHandler = DbHandler(this)
+    var CORREO_INSPECTOR: String = "";
+    val API: String = "https://www.fer-sepulveda.cl/API_PRUEBA2/api-service.php"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
+        CORREO_INSPECTOR = db.userIsLogged()
         val extras = intent.extras
 
         if (extras != null) {
@@ -140,17 +142,16 @@ class Home : AppCompatActivity() {
          * que falta por completar.
          */
 
-        // TODO: NECESITAMOS EN CORREO EL USUARIO CON EL QUE SE LOGUEO
         val mediaType: MediaType? = MediaType.parse("application/json; charset=utf-8")
         val json = "{\"nombreFuncion\":\"InspeccionAlmacenar\", \"parametros\": [\"" + patente +
                     "\", \"" + marca + "\", \"" + color + "\", \"" + txt_fecha_ingreso + "\", \"" +
                     txt_kilometraje + "\", \"" + motivo + "\", \"" + txt_otro + "\", \"" + txt_rut +
-                    "\", \"" + txt_nombre + "\", \"" + "CORREO" + "\"]}"
+                    "\", \"" + txt_nombre + "\", \"" + CORREO_INSPECTOR + "\"]}"
         Log.i("TPE: ", json)
         val client = OkHttpClient()
         val body: RequestBody = RequestBody.create(mediaType, json)
         val request: Request =
-            Request.Builder().url("https://www.fer-sepulveda.cl/API_PRUEBA2/api-service.php").post(body).build()
+            Request.Builder().url(API).post(body).build()
 
         if (validator) {
             client.newCall(request).enqueue(object : Callback {
@@ -160,6 +161,8 @@ class Home : AppCompatActivity() {
 
                 override fun onResponse(call: Call, response: Response) {
                     val jsonData = response.body()!!.string()
+                    println(jsonData)
+
                     val obj = Json.decodeFromString<RespuestaAuth>(jsonData.toString())
                     println(obj.result)
                     /**
