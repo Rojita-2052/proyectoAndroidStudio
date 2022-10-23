@@ -20,12 +20,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         CORREO_INSPECTOR = db.userIsLogged()
-        println(CORREO_INSPECTOR)
+        println("CORREO: " +CORREO_INSPECTOR)
         if (CORREO_INSPECTOR != "") {
             val intent= Intent(applicationContext, Opciones::class.java)
             startActivity(intent)
         }
-        // TODO: ACA SE DEBE CONSULTAR A LA BD Y VER SI EXISTE UN USUARIO CREADO
     }
 
     fun credenciales(view: View)
@@ -52,8 +51,7 @@ class MainActivity : AppCompatActivity() {
                     val obj = Json.decodeFromString<RespuestaAuth>(jsonData.toString())
 
                     if(obj.result == "LOGIN OK"){
-                        // TODO: EL USUARIO CUANDO LOGUEA CORRECTAMENTE SE DEBE GUARDAR EN LA BASE DE DATOS LOCAL
-                        val response = db.insertUsuario(usuario, clave)
+                        val response = db.insertLogin(usuario, clave)
                         Log.i("TPE", "onCreate: " + response)
                         val intent= Intent(applicationContext, Opciones::class.java)
                         startActivity(intent)

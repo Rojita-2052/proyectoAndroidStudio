@@ -35,6 +35,7 @@ class MyListAdapter(
         // patenteText.text = "PATENTE: ${ID[position]}"
         marcaText.text = "MARCA: ${MARCA[position]}"
         colorText.text = "COLOR: ${COLOR[position]}"
+//<<<<<<< HEAD
         fechaIngresoText.text = "FECHA_INGRESO: ${FECHA_INGRESO[position]}"
         kilometrajeText.text = "KILOMETRAJE: ${KILOMETRAJE[position]}"
         motivoText.text = "MOTIVO: ${MOTIVO[position]}"
@@ -42,6 +43,15 @@ class MyListAdapter(
         rutText.text = "RUT_CLIENTE: ${RUT_cLIENTE[position]}"
         nombreText.text = "NOMBRE: ${NOMBRE_CLIENTE[position]}"
         inspectorText.text = "CORREO: ${CORREO_INSPECTOR[position]}"
+//=======
+        fechaIngresoText.text = "FECHA INGRESO: ${FECHA_INGRESO[position]}"
+        kilometrajeText.text = "KILOMETRAJE: ${KILOMETRAJE[position]}"
+        motivoText.text = "MOTIVO: ${MOTIVO[position]}"
+        motivoTextoText.text = "MOTIVO TEXT: ${MOTIVO_TEXTO[position]}"
+        rutText.text = "RUT: ${RUT_cLIENTE[position]}"
+        nombreText.text = "NOMBRE: ${NOMBRE_CLIENTE[position]}"
+        inspectorText.text = "INSPECTOR: ${CORREO_INSPECTOR[position]}"
+//>>>>>>> a39b748a10df19c18720b6d9d56709dc6eeb609d
         return rowView
     }
 }
