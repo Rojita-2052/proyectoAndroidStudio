@@ -35,7 +35,7 @@ class DbHandler(context: Context): SQLiteOpenHelper(context, "datos_db", null, 1
 
         contentValues.put("CORREO", correo)
         contentValues.put("CONTRASENA", contrasena)
-
+        println("Usuario que se va ingresar: " + contentValues)
         val success = db.insert("USUARIO", null, contentValues)
         db.close()
         return success
@@ -56,7 +56,7 @@ class DbHandler(context: Context): SQLiteOpenHelper(context, "datos_db", null, 1
 
 
         if (cursor != null && cursor.moveToFirst()) {
-            //CORREO = cursor.getString(cursor.getColumnIndex("CORREO"))
+            CORREO = cursor.getString(cursor.getColumnIndexOrThrow("CORREO"))
             cursor.close()
         }
         return CORREO;
