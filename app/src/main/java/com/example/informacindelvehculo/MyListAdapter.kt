@@ -33,15 +33,15 @@ class MyListAdapter(
 
         idText.text = "ID: ${ID[position]}"
         // patenteText.text = "PATENTE: ${ID[position]}"
-        marcaText.text = "ID: ${MARCA[position]}"
-        colorText.text = "ID: ${COLOR[position]}"
-        fechaIngresoText.text = "ID: ${FECHA_INGRESO[position]}"
-        kilometrajeText.text = "ID: ${KILOMETRAJE[position]}"
-        motivoText.text = "RUT: ${MOTIVO[position]}"
-        motivoTextoText.text = "RUT: ${MOTIVO_TEXTO[position]}"
-        rutText.text = "RUT: ${RUT_cLIENTE[position]}"
-        nombreText.text = "RUT: ${NOMBRE_CLIENTE[position]}"
-        inspectorText.text = "NOMBRE: ${CORREO_INSPECTOR[position]}"
+        marcaText.text = "MARCA: ${MARCA[position]}"
+        colorText.text = "COLOR: ${COLOR[position]}"
+        fechaIngresoText.text = "FECHA_INGRESO: ${FECHA_INGRESO[position]}"
+        kilometrajeText.text = "KILOMETRAJE: ${KILOMETRAJE[position]}"
+        motivoText.text = "MOTIVO: ${MOTIVO[position]}"
+        motivoTextoText.text = "MOTIVO_TEXTO: ${MOTIVO_TEXTO[position]}"
+        rutText.text = "RUT_CLIENTE: ${RUT_cLIENTE[position]}"
+        nombreText.text = "NOMBRE: ${NOMBRE_CLIENTE[position]}"
+        inspectorText.text = "CORREO: ${CORREO_INSPECTOR[position]}"
         return rowView
     }
 }

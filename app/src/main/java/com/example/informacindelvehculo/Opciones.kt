@@ -23,4 +23,5 @@ class Opciones : AppCompatActivity() {
 
         startActivity(intent)
     }
+
 }

@@ -31,7 +31,6 @@ class Home : AppCompatActivity() {
 
     }
 
-
     fun iniciarSpinnerMarca() {
         val opcionMarca = arrayOf("Seleccionar","Hyundai", "Chevrolet", "Susuki", "Nissan", "Chery")
 
