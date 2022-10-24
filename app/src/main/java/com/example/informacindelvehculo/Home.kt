@@ -1,5 +1,6 @@
 package com.example.informacindelvehculo
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -140,7 +141,7 @@ class Home : AppCompatActivity() {
          * si los datos son validos se envía un reporte, en caso contrario te notifica los campos
          * que falta por completar.
          */
-
+        println("FECHA INGRESO: "+ txt_fecha_ingreso)
         val mediaType: MediaType? = MediaType.parse("application/json; charset=utf-8")
         val json = "{\"nombreFuncion\":\"InspeccionAlmacenar\", \"parametros\": [\"" + patente +
                     "\", \"" + marca + "\", \"" + color + "\", \"" + txt_fecha_ingreso + "\", \"" +
@@ -149,8 +150,7 @@ class Home : AppCompatActivity() {
         Log.i("TPE: ", json)
         val client = OkHttpClient()
         val body: RequestBody = RequestBody.create(mediaType, json)
-        val request: Request =
-            Request.Builder().url(API).post(body).build()
+        val request: Request = Request.Builder().url(API).post(body).build()
 
         if (validator) {
             client.newCall(request).enqueue(object : Callback {
@@ -159,13 +159,13 @@ class Home : AppCompatActivity() {
                 }
 
                 override fun onResponse(call: Call, response: Response) {
+                    println("ON RESPONSE")
                     val jsonData = response.body()!!.string()
-                    println(jsonData)
+                    println("JSON" + jsonData)
 
-                    val obj = Json.decodeFromString<RespuestaAuth>(jsonData.toString())
-                    println(obj.result)
-                    /**
-                    if(obj.result != "NUEVO MENSAJE"){
+                    val obj = Json.decodeFromString<RespuestaInspecciones>(jsonData.toString())
+                    if(obj.result[0].RESPUESTA == "OK"){
+                        val response = db.insertInspeccion(patente, marca, color, txt_fecha_ingreso, txt_kilometraje, motivo, txt_otro, txt_rut, txt_nombre)
                         val intent= Intent(applicationContext, Opciones::class.java)
                         startActivity(intent)
                         println("Entraste")
@@ -178,10 +178,11 @@ class Home : AppCompatActivity() {
                                 Toast.LENGTH_LONG
                             ).show()
                         }
-                    }**/
+                    }
                 }
             })
         } else {
+            println("ELSE")
             val toast = Toast.makeText(this, error, Toast.LENGTH_LONG)
             toast.show()
         }

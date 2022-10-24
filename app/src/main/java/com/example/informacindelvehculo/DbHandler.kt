@@ -22,7 +22,7 @@ class DbHandler(context: Context): SQLiteOpenHelper(context, "datos_db", null, 1
                 "CORREO TEXT, CONTRASENA TEXT, FECHA_INGRESO DATE)")
         db?.execSQL(sql_login)
         val sql_inspecciones = (
-            "CREATE TABLE INSPECCION (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "CREATE TABLE INSPECCION (ID INTEGER PRIMARY KEY AUTOINCREMENT, PATENTE TEXT, " +
             "MARCA TEXT, COLOR TEXT, FECHA_INGRESO TEXT, KILOMETRAJE, MOTIVO TEXT, MOTIVO_TEXTO TEXT, " +
             "RUT_CLIENTE TEXT, NOMBRE_CLIENTE TEXT)"
         )
@@ -92,9 +92,22 @@ class DbHandler(context: Context): SQLiteOpenHelper(context, "datos_db", null, 1
     }
 
     //MÉTODO QUE INSERTA UNA INSPECCION
-    fun insertInspeccion():Long{
+    fun insertInspeccion(
+        PATENTE: String, MARCA: String, COLOR: String,
+        FECHA_INGRESO: String, KILOMETRAJE: String, MOTIVO: String,
+        MOTIVO_TEXTO: String?, RUT: String, NOMBRE: String
+    ):Long{
         val db = this.writableDatabase
         val contentValues = ContentValues()
+        contentValues.put("PATENTE", PATENTE)
+        contentValues.put("MARCA", MARCA)
+        contentValues.put("COLOR", COLOR)
+        contentValues.put("FECHA_INGRESO", FECHA_INGRESO)
+        contentValues.put("KILOMETRAJE", KILOMETRAJE)
+        contentValues.put("MOTIVO", MOTIVO)
+        contentValues.put("MOTIVO_TEXTO", MOTIVO_TEXTO)
+        contentValues.put("RUT_CLIENTE", RUT)
+        contentValues.put("NOMBRE_CLIENTE", NOMBRE)
 
         val success = db.insert("INSPECCION", null, contentValues)
         db.close()

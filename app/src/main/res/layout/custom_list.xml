@@ -16,6 +16,15 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
     <TextView
+        android:id="@+id/txt_patente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="10dp"
+        android:paddingBottom="2dp"
+        android:text="PATENTE"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+    <TextView
         android:id="@+id/txt_marca"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

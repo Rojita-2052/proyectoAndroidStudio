@@ -28,7 +28,7 @@ class ListarInspeccion : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 val jsonData = response.body()!!.string()
                 println("TPE: " + jsonData)
-                val obj = Json.decodeFromString<RespuestaInspecciones>(jsonData.toString())
+                val obj = Json.decodeFromString<RespuestaGetInspecciones>(jsonData.toString())
                 println("TPE: " + obj.result);
 
                 for (p in obj.result) {
@@ -46,6 +46,7 @@ class ListarInspeccion : AppCompatActivity() {
         val emp: List<Inspeccion> = lista
 
         val ID = Array<String>(emp.size){ "0"}
+        val PATENTE = Array<String>(emp.size){"null"}
         val MARCA = Array<String>(emp.size){"null"}
         val COLOR = Array<String>(emp.size){"null"}
         val FECHA_INGRESO = Array<String>(emp.size){"null"}
@@ -59,6 +60,7 @@ class ListarInspeccion : AppCompatActivity() {
 
         for(e in emp){
             ID[index] = e.ID.toString()
+            PATENTE[index] = e.PATENTE.toString()
             MARCA[index] = e.MARCA.toString()
             COLOR[index] = e.COLOR.toString()
             FECHA_INGRESO[index] = e.FECHA_INGRESO.toString()
@@ -74,7 +76,7 @@ class ListarInspeccion : AppCompatActivity() {
         var listView = findViewById<ListView>(R.id.listView)
 
         val myListAdapter = MyListAdapter(
-            this, ID, MARCA, COLOR, FECHA_INGRESO,
+            this, ID, PATENTE, MARCA, COLOR, FECHA_INGRESO,
             KILOMETRAJE, MOTIVO, MOTIVO_TEXTO, RUT_cLIENTE,
             NOMBRE_CLIENTE, CORREO_INSPECTOR
         )

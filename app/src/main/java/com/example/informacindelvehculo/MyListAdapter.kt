@@ -8,6 +8,7 @@ import android.widget.TextView
 
 class MyListAdapter(
     private val context: Activity, private val ID: Array<String>,
+    private val PATENTE: Array<String>,
     private val MARCA: Array<String>, private val COLOR: Array<String>,
     private val FECHA_INGRESO: Array<String>, private val KILOMETRAJE: Array<String>,
     private val MOTIVO: Array<String>, private val MOTIVO_TEXTO: Array<String>,
@@ -20,7 +21,7 @@ class MyListAdapter(
         val rowView = inflater.inflate(R.layout.custom_list, null, true)
 
         val idText = rowView.findViewById(R.id.txt_id) as TextView
-        // val patenteText = rowView.findViewById(R.id.txt_patente) as TextView
+        val patenteText = rowView.findViewById(R.id.txt_patente) as TextView
         val marcaText = rowView.findViewById(R.id.txt_marca) as TextView
         val colorText = rowView.findViewById(R.id.txt_color) as TextView
         val fechaIngresoText = rowView.findViewById(R.id.txt_fecha_ingreso) as TextView
@@ -32,7 +33,7 @@ class MyListAdapter(
         val inspectorText = rowView.findViewById(R.id.txt_correo_inspector) as TextView
 
         idText.text = "ID: ${ID[position]}"
-        // patenteText.text = "PATENTE: ${ID[position]}"
+        patenteText.text = "PATENTE: ${PATENTE[position]}"
         marcaText.text = "MARCA: ${MARCA[position]}"
         colorText.text = "COLOR: ${COLOR[position]}"
         fechaIngresoText.text = "FECHA_INGRESO: ${FECHA_INGRESO[position]}"
