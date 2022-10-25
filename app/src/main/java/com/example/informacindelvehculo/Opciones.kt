@@ -4,17 +4,20 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 
 class Opciones : AppCompatActivity() {
     val db: DbHandler = DbHandler(this)
     var CORREO_INSPECTOR: String = "";
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_opciones)
 
         CORREO_INSPECTOR = db.userIsLogged()
+
+
+        this.supportActionBar!!.title = CORREO_INSPECTOR
 
     }
 
