@@ -3,4 +3,4 @@ package com.example.informacindelvehculo
 import kotlinx.serialization.Serializable
 
 @Serializable
-class RespuestaInspecciones (var result: List<Mensaje>)
+class RespuestaRegistro (var result: List<Mensaje>)
