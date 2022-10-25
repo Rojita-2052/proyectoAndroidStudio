@@ -16,7 +16,6 @@ class Opciones : AppCompatActivity() {
 
         CORREO_INSPECTOR = db.userIsLogged()
 
-
         this.supportActionBar!!.title = CORREO_INSPECTOR
 
     }
