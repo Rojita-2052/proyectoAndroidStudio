@@ -6,12 +6,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import okhttp3.*
 import java.io.IOException
 
 class Registro : AppCompatActivity() {
+    val db: DbHandler = DbHandler(this)
+    val API = "https://www.fer-sepulveda.cl/API_PRUEBA2/api-service.php";
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
@@ -45,7 +49,7 @@ class Registro : AppCompatActivity() {
         val client = OkHttpClient()
         val body: RequestBody = RequestBody.create(mediaType, json)
         val request: Request =
-            Request.Builder().url("https://www.fer-sepulveda.cl/API_PRUEBA2/api-service.php").post(body).build()
+            Request.Builder().url(API).post(body).build()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -55,8 +59,22 @@ class Registro : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 val jsonData = response.body()!!.string()
 
-                val obj = Json.decodeFromString<RespuestaAuth>(jsonData.toString())
-                println(obj.result);
+                val obj = Json.decodeFromString<RespuestaRegistro>(jsonData.toString())
+                println("RESPONSE REGISTER: " + obj.result);
+
+                if (obj.result[0].RESPUESTA == "OK") {
+                    val intent= Intent(applicationContext, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    println("Error guardando usuario")
+                    runOnUiThread {
+                        Toast.makeText(
+                            applicationContext,
+                            "No se pudo agregar usuario",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
             }
         })
     }
