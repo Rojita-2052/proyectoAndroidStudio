@@ -36,4 +36,9 @@ class Opciones : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun ScanearQR(view: View){
+        val intent= Intent(this, QR::class.java)
+        startActivity(intent)
+    }
+
 }
