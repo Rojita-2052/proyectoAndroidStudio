@@ -107,6 +107,7 @@ class QR : AppCompatActivity() {
                     runOnUiThread {
                         cameraSource.stop()
                         Toast.makeText(this@QR, "value- $scannedValue", Toast.LENGTH_SHORT).show()
+                        AsistenciaAlmacenar()
                         //finish()
                     }
                 }else
@@ -145,7 +146,7 @@ class QR : AppCompatActivity() {
         super.onDestroy()
         cameraSource.stop()
     }
-    /*fun AsistenciaAlmacenar()
+    fun AsistenciaAlmacenar()
     {
         val mensajeEntrada= findViewById<TextView>(R.id.txt_viewQR).text.toString()
         val correo  = findViewById<EditText>(R.id.txt_correo_registro).text.toString()
@@ -169,8 +170,11 @@ class QR : AppCompatActivity() {
             }
 
         })
+        println("Entraste")
+        runOnUiThread{
+            (Toast.makeText(applicationContext,
+                "Bienvenido tu ingreso ha sido con fecha: " + mensajeEntrada2,Toast.LENGTH_LONG).show())
+        }
 
-        Toast.makeText(applicationContext,
-        "Bienvenido tu ingreso ha sido con fecha: " + mensajeEntrada2,Toast.LENGTH_LONG).show()
-    }*/
+    }
 }

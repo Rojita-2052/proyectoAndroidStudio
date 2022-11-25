@@ -41,39 +41,9 @@ class Opciones : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun AsistenciaAlmacenar(view: View){
+    fun scannearQR(view: View){
         val intent= Intent(this, QR::class.java)
         startActivity(intent)
-
-        val mensajeEntrada= findViewById<TextView>(R.id.txt_viewQR).text.toString()
-        val correo  = findViewById<EditText>(R.id.txt_correo_registro).text.toString()
-        val client = OkHttpClient()
-        val mediaType: MediaType? = MediaType.parse("application/json; charset=utf-8")
-        val parts = mensajeEntrada.split("|")
-        val mensajeEntrada1 = parts[0]
-        val mensajeEntrada2 = parts[1]
-
-        val json = "{\"nombreFuncion\": \"AsistenciaAlmacenar\",\"parametros\": [\" "+ correo +"\", \" " + mensajeEntrada1 +"\"]}"
-        val body: RequestBody = RequestBody.create(mediaType, json)
-        val request: Request =  Request.Builder().url(ruta).post(body).build()
-
-        client.newCall(request).enqueue(object: Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                println("TPE: La petición fallo")
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                println("TPE: La petición funciono con éxito")
-
-                println("TPE: " + response.body()?.string())
-            }
-        })
-        println("Entraste")
-        runOnUiThread{
-            (Toast.makeText(applicationContext,
-            "Bienvenido tu ingreso ha sido con fecha: " + mensajeEntrada2,Toast.LENGTH_LONG).show())
-        }
-
     }
 
 }
