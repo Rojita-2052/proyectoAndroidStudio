@@ -16,6 +16,7 @@ class ListarInspeccion : AppCompatActivity() {
         setContentView(R.layout.activity_listar_inspeccion)
 
         obtenerInspecciones("https://fer-sepulveda.cl/API_PRUEBA2/api-service.php?nombreFuncion=InspeccionObtener")
+
     }
 
     fun obtenerInspecciones(url: String) {

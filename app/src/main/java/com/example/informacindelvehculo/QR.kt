@@ -5,8 +5,11 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.SurfaceHolder
+import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -17,6 +20,7 @@ import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.google.android.gms.vision.Detector.Detections
+import okhttp3.*
 
 class QR : AppCompatActivity() {
     private val requestCodeCameraPermission = 1001
@@ -25,6 +29,7 @@ class QR : AppCompatActivity() {
     private var scannedValue = ""
     private lateinit var binding: ActivityQrBinding
 
+    val ruta: String = "https://fer-sepulveda.cl/API_PRUEBA2/api-service.php"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityQrBinding.inflate(layoutInflater)
@@ -140,4 +145,32 @@ class QR : AppCompatActivity() {
         super.onDestroy()
         cameraSource.stop()
     }
+    /*fun AsistenciaAlmacenar()
+    {
+        val mensajeEntrada= findViewById<TextView>(R.id.txt_viewQR).text.toString()
+        val correo  = findViewById<EditText>(R.id.txt_correo_registro).text.toString()
+        val client = OkHttpClient()
+        val mediaType: MediaType? = MediaType.parse("application/json; charset=utf-8")
+        var parts = mensajeEntrada.split("|")
+        var mensajeEntrada1 = parts[0]
+        var mensajeEntrada2 = parts[1]
+
+        val json = "{\"nombreFuncion\": \"AsistenciaAlmacenar\",\"parametros\": [\" "+ correo +"\", \" " + mensajeEntrada1+"\"]}"
+        val body: RequestBody = RequestBody.create(mediaType, json)
+        val request: Request =  Request.Builder().url(ruta).post(body).build()
+
+        client.newCall(request).enqueue(object: Callback{
+            override fun onFailure(call: Call, e: IOException) {
+                println("TPE: La petición fallo")
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                println("TPE: La petición funciono con éxito")
+            }
+
+        })
+
+        Toast.makeText(applicationContext,
+        "Bienvenido tu ingreso ha sido con fecha: " + mensajeEntrada2,Toast.LENGTH_LONG).show()
+    }*/
 }
