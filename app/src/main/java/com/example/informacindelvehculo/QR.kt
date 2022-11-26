@@ -1,6 +1,7 @@
 package com.example.informacindelvehculo
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,6 +21,8 @@ import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.gms.vision.barcode.BarcodeDetector
 import com.google.android.gms.vision.Detector.Detections
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import okhttp3.*
 
 class QR : AppCompatActivity() {
@@ -28,12 +31,16 @@ class QR : AppCompatActivity() {
     private lateinit var barcodeDetector: BarcodeDetector
     private var scannedValue = ""
     private lateinit var binding: ActivityQrBinding
+    val db: DbHandler = DbHandler(this)
+    var CORREO_INSPECTOR: String = "";
+
 
     val ruta: String = "https://fer-sepulveda.cl/API_PRUEBA2/api-service.php"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityQrBinding.inflate(layoutInflater)
         val view = binding.root
+        CORREO_INSPECTOR = db.userIsLogged()
         setContentView(view)
 
         if (ContextCompat.checkSelfPermission(
@@ -106,8 +113,7 @@ class QR : AppCompatActivity() {
                     //Don't forget to add this line printing value or finishing activity must run on main thread
                     runOnUiThread {
                         cameraSource.stop()
-                        Toast.makeText(this@QR, "value- $scannedValue", Toast.LENGTH_SHORT).show()
-                        //finish()
+                        AsistenciaAlmacenar(scannedValue);
                     }
                 }else
                 {
@@ -145,17 +151,16 @@ class QR : AppCompatActivity() {
         super.onDestroy()
         cameraSource.stop()
     }
-    /*fun AsistenciaAlmacenar()
+    fun AsistenciaAlmacenar(scannedValue: String)
     {
-        val mensajeEntrada= findViewById<TextView>(R.id.txt_viewQR).text.toString()
-        val correo  = findViewById<EditText>(R.id.txt_correo_registro).text.toString()
+        println("TPE: ENTRA ASISTENCIA ALMACENAR ->" + scannedValue);
         val client = OkHttpClient()
         val mediaType: MediaType? = MediaType.parse("application/json; charset=utf-8")
-        var parts = mensajeEntrada.split("|")
+        var parts = scannedValue.split("|")
         var mensajeEntrada1 = parts[0]
         var mensajeEntrada2 = parts[1]
 
-        val json = "{\"nombreFuncion\": \"AsistenciaAlmacenar\",\"parametros\": [\" "+ correo +"\", \" " + mensajeEntrada1+"\"]}"
+        val json = "{\"nombreFuncion\": \"AsistenciaAlmacenar\",\"parametros\": [\" "+ CORREO_INSPECTOR +"\", \" " + mensajeEntrada1+"\"]}"
         val body: RequestBody = RequestBody.create(mediaType, json)
         val request: Request =  Request.Builder().url(ruta).post(body).build()
 
@@ -166,11 +171,33 @@ class QR : AppCompatActivity() {
 
             override fun onResponse(call: Call, response: Response) {
                 println("TPE: La petición funciono con éxito")
+                val jsonData = response.body()!!.string()
+                println("TPE: JSON" + jsonData);
+
+                val obj = Json.decodeFromString<RespuestaInspecciones>(jsonData.toString())
+                if(obj.result[0].RESPUESTA == "OK") {
+                    runOnUiThread {
+                        Toast.makeText(
+                            applicationContext,
+                            "Bienvenido tu ingreso ha sido con fecha: " + mensajeEntrada2,Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    val intent= Intent(applicationContext, Opciones::class.java)
+                    startActivity(intent)
+                } else {
+                    runOnUiThread {
+                        Toast.makeText(
+                            applicationContext,
+                            "Error QR ya utilizado con fecha: " + mensajeEntrada2,Toast.LENGTH_LONG
+                        ).show()
+                    }
+                    val intent= Intent(applicationContext, Opciones::class.java)
+                    startActivity(intent)
+                }
             }
 
         })
 
-        Toast.makeText(applicationContext,
-        "Bienvenido tu ingreso ha sido con fecha: " + mensajeEntrada2,Toast.LENGTH_LONG).show()
-    }*/
+
+    }
 }
