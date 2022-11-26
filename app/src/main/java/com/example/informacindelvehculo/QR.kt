@@ -164,7 +164,7 @@ class QR : AppCompatActivity() {
         val body: RequestBody = RequestBody.create(mediaType, json)
         val request: Request =  Request.Builder().url(ruta).post(body).build()
 
-        client.newCall(request).enqueue(object: Callback{
+        client.newCall(request).enqueue(object: Callback {
             override fun onFailure(call: Call, e: IOException) {
                 println("TPE: La petición fallo")
             }
@@ -175,29 +175,28 @@ class QR : AppCompatActivity() {
                 println("TPE: JSON" + jsonData);
 
                 val obj = Json.decodeFromString<RespuestaInspecciones>(jsonData.toString())
-                if(obj.result[0].RESPUESTA == "OK") {
+                if (obj.result[0].RESPUESTA == "OK") {
                     runOnUiThread {
                         Toast.makeText(
                             applicationContext,
-                            "Bienvenido tu ingreso ha sido con fecha: " + mensajeEntrada2,Toast.LENGTH_LONG
+                            "Bienvenido tu ingreso ha sido con fecha: " + mensajeEntrada2,
+                            Toast.LENGTH_LONG
                         ).show()
                     }
-                    val intent= Intent(applicationContext, Opciones::class.java)
+                    val intent = Intent(applicationContext, Opciones::class.java)
                     startActivity(intent)
                 } else {
                     runOnUiThread {
                         Toast.makeText(
                             applicationContext,
-                            "Error QR ya utilizado con fecha: " + mensajeEntrada2,Toast.LENGTH_LONG
+                            "Error QR ya utilizado con fecha: " + mensajeEntrada2, Toast.LENGTH_LONG
                         ).show()
                     }
-                    val intent= Intent(applicationContext, Opciones::class.java)
+                    val intent = Intent(applicationContext, Opciones::class.java)
                     startActivity(intent)
                 }
             }
 
         })
-
-
     }
 }
